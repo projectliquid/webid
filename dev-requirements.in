@@ -2,3 +2,4 @@ flit
 pytest
 mypy
 pip-tools
+sphinx
