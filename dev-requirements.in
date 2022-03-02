@@ -3,3 +3,4 @@ pytest
 mypy
 pip-tools
 sphinx
+black
