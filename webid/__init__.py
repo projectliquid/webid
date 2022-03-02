@@ -1,13 +1,21 @@
+"""
+This module provides a WebID implementation.
+
+Important SPECS:
+
+- https://www.w3.org/2005/Incubator/webid/spec/identity/
+- http://xmlns.com/foaf/spec/
+
+
+
+"""
+__version__ = "0.1.0"
+
 from rdflib import Graph, URIRef, Literal
 from rdflib.namespace import FOAF, RDF
 from rdflib import Namespace
 
 SOLID = Namespace("http://www.w3.org/ns/solid/terms#")
-
-
-# Important SPECS:
-# https://www.w3.org/2005/Incubator/webid/spec/identity/
-# http://xmlns.com/foaf/spec/
 
 
 class WebID:
@@ -49,7 +57,7 @@ class WebID:
         if kind == "Person":
             self.g.add((self.me_uri, RDF.type, FOAF.Person))
         else:
-            self.g.add((self.me_uriRDF.type, FOAF.Agent))
+            self.g.add((self.me_uri, RDF.type, FOAF.Agent))
         # Add the OIDC issuer value if available
         if self.oidcissuer:
             self.g.add((self.me_uri, SOLID.oidcIssuer, URIRef(self.oidcissuer)))
