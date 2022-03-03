@@ -39,3 +39,17 @@ def test_full_webid_without_oidc():
 
     res = w.serialize()
     assert FULL_WEBID_WITHOUT_OIDC == res
+
+
+def test_issuer_token():
+    "Tests adding and removing issuer registration token"
+    w = WebID(
+        "http://localhost:3000/example/profile/card",
+    )
+
+    w.add_oidc_issuer_registration_token("Hack the planet!")
+    res = w.serialize()
+    assert 'solid:oidcIssuerRegistrationToken "Hack the planet!"' in res
+    w.remove_oidc_issuer_registration_token()
+    res = w.serialize()
+    assert not 'solid:oidcIssuerRegistrationToken "Hack the planet!"' in res

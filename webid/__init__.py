@@ -62,5 +62,16 @@ class WebID:
         if self.oidcissuer:
             self.g.add((self.me_uri, SOLID.oidcIssuer, URIRef(self.oidcissuer)))
 
+    def add_oidc_issuer_registration_token(self, token: str):
+        """Adds the given registration token to the card.
+
+        :args token: registration token given by the IDP.
+        """
+        self.g.set((self.me_uri, SOLID.oidcIssuerRegistrationToken, Literal(token)))
+
+    def remove_oidc_issuer_registration_token(self):
+        """Removes registration token from the card (if any)"""
+        self.g.remove((self.me_uri, SOLID.oidcIssuerRegistrationToken, None))
+
     def serialize(self) -> str:
         return self.g.serialize(format="turtle")
