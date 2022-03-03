@@ -14,3 +14,11 @@ update-dev-requirements:
 # To update the runtime requirements file
 update-requirements:
   .venv/bin/pip-compile --generate-hashes --allow-unsafe --output-file=requirements.txt requirements.in
+
+# To create the documentation
+docs:
+  cd docs && make html
+
+# To run all the tests
+tests:
+  pytest -s -vvv
