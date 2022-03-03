@@ -27,21 +27,22 @@ class FOAFKind(Enum):
 
 
 class WebID:
+    """Initiates a WebID class. The URL is the primary ID URL.
+
+    :param kind: The kind of document owner, a person or an agent.
+    :type kind: :class:`webid.FOAFKind`, optional
+    :param oidcissuer: URL of the OIDC provider. Default empty string.
+    :type oidcissuer: str, optional
+    """
+
     def __init__(
         self,
         url: str,
         kind: FOAFKind = FOAFKind.Person,
-        solid: bool = False,
         oidcissuer: str = "",
     ) -> None:
-        """Initiates a WebID class. The URL is the primary ID URL.
 
-        :args document_kind: ProfileDocument
-        :args kind: FOAFKind, Person or Agent.
-        :args oidcissuer: URL of the OIDC provider. Default empty string.
-        """
         self.url = url
-        self.solid = solid
         self.oidcissuer = oidcissuer
 
         self.me_url = f"{self.url}/#me"
@@ -69,6 +70,7 @@ class WebID:
         """Adds the given registration token to the card.
 
         :args token: registration token given by the IDP.
+        :type token: str
         """
         self.g.set((self.me_uri, SOLID.oidcIssuerRegistrationToken, Literal(token)))
 
@@ -77,4 +79,10 @@ class WebID:
         self.g.remove((self.me_uri, SOLID.oidcIssuerRegistrationToken, None))
 
     def serialize(self) -> str:
+        """
+        Returns a Turtle representation of the WebID document.
+
+        :return: Returns a Turtle representation along with prefixes (if any).
+        :rtype: str
+        """
         return self.g.serialize(format="turtle")
