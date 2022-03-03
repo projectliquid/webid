@@ -92,6 +92,7 @@ docutils==0.16 \
     # via
     #   flit
     #   sphinx
+    #   sphinx-rtd-theme
     #   sphinx-tabs
     #   sphinx-toolbox
 domdf-python-tools==3.2.2.post1 \
@@ -364,6 +365,7 @@ sphinx==4.4.0 \
     #   enum-tools
     #   sphinx-autodoc-typehints
     #   sphinx-prompt
+    #   sphinx-rtd-theme
     #   sphinx-tabs
     #   sphinx-toolbox
 sphinx-autodoc-typehints==1.14.1 \
@@ -373,6 +375,10 @@ sphinx-autodoc-typehints==1.14.1 \
 sphinx-prompt==1.5.0 \
     --hash=sha256:fa4e90d8088b5a996c76087d701fc7e31175f8b9dc4aab03a507e45051067162
     # via sphinx-toolbox
+sphinx-rtd-theme==1.0.0 \
+    --hash=sha256:4d35a56f4508cfee4c4fb604373ede6feae2a306731d533f409ef5c3496fdbd8 \
+    --hash=sha256:eec6d497e4c2195fa0e8b2016b337532b8a699a68bcb22a512870e16925c6a5c
+    # via -r dev-requirements.in
 sphinx-tabs==3.2.0 \
     --hash=sha256:1e1b1846c80137bd81a78e4a69b02664b98b1e1da361beb30600b939dfc75065 \
     --hash=sha256:33137914ed9b276e6a686d7a337310ee77b1dae316fdcbce60476913a152e0a4

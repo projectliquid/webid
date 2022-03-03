@@ -4,4 +4,5 @@ mypy
 pip-tools
 sphinx
 black
+sphinx_rtd_theme
 enum-tools[sphinx]
