@@ -4,3 +4,4 @@ mypy
 pip-tools
 sphinx
 black
+enum-tools[sphinx]
