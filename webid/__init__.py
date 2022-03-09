@@ -23,6 +23,13 @@ WHERE {
     ?subject foaf:maker ?maker .
     ?subject foaf:primaryTopic ?topic .
 
+}
+"""
+SELECT_PRIMARYID_FOR_SOLID = """SELECT ?subject
+WHERE {
+    ?subject foaf:maker ?maker .
+    ?subject foaf:primaryTopic ?topic .
+
     ?maker solid:oidcIssuer ?issuer .
 }
 """
@@ -92,7 +99,7 @@ class WebID:
         self.g.set((self.me_uri, SOLID.oidcIssuerRegistrationToken, Literal(token)))
 
     @staticmethod
-    def parse(data: str, publicid="") -> "WebID":
+    def parse(data: str, publicid: str = "", solid: bool = False) -> "WebID":
         """
         Parses the given data and creates a WebID.
 
@@ -100,6 +107,11 @@ class WebID:
         :type data: str
         :args publicid: The primary ID URL, this is optional, default empty string.
         :type publicid: str, optional
+        :args solid: If this is a Solid WebID, requires oidcIssuer value in data, default `False`.
+        :type solid: bool, optional
+
+        :return: Returns a WebID object
+        :rtype: WebID
         """
         g = Graph()
         # If the publicID is already in the turtle, then it will not be changed due to
@@ -108,7 +120,10 @@ class WebID:
         g.parse(publicID=publicid, data=data)
         g.bind("foaf", FOAF)
         g.bind("solid", SOLID)
-        qres = g.query(SELECT_PRIMARYID)
+        if not solid:
+            qres = g.query(SELECT_PRIMARYID)
+        else:
+            qres = g.query(SELECT_PRIMARYID_FOR_SOLID)
         if len(qres) != 1:
             raise ParseError
 
