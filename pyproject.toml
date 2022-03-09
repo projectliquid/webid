@@ -3,7 +3,7 @@ requires = ["flit_core >=3.2,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "webid"
+name = "pywebid"
 authors = [
     {name = "Kushal Das", email = "mail@kushaldas.in"},
 ]
@@ -28,3 +28,6 @@ Source = "https://github.com/projectliquid/webid"
 [tool.flit.sdist]
 include = ["LICENSE", "README.md"]
 exclude = ["docs/*.html", ".readthedocs.yaml", "dev*.*"]
+
+[tool.flit.module]
+name = "webid"

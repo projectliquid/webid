@@ -9,7 +9,7 @@ Important SPECS:
 Read the `documentation <https://webid.readthedocs.io/en/latest/index.html>`_. 
 
 """
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 from enum import Enum
 from rdflib import Graph, URIRef, Literal

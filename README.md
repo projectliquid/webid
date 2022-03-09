@@ -8,6 +8,6 @@ Read [documentation](https://webid.readthedocs.io/en/latest/index.html) for usag
 ## How to install?
 
 ```
-python3 -m pip install webid
+python3 -m pip install pywebid
 ```
 ## License: MIT
