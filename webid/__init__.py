@@ -18,6 +18,23 @@ from rdflib import Namespace
 
 SOLID = Namespace("http://www.w3.org/ns/solid/terms#")
 
+SELECT_PRIMARYID = """SELECT ?subject
+WHERE {
+    ?subject foaf:maker ?maker .
+    ?subject foaf:primaryTopic ?topic .
+
+    ?maker solid:oidcIssuer ?issuer .
+}
+"""
+
+
+class ParseError(Exception):
+    def __init__(self, *args: object) -> None:
+        super().__init__(*args)
+
+    def __str__(self):
+        return "The parsed graph does not contained required WebID tripples."
+
 
 class FOAFKind(Enum):
     """The kind of FOAF document, for an agent or person."""
@@ -73,6 +90,32 @@ class WebID:
         :type token: str
         """
         self.g.set((self.me_uri, SOLID.oidcIssuerRegistrationToken, Literal(token)))
+
+    @staticmethod
+    def parse(data: str, publicid="") -> "WebID":
+        """
+        Parses the given data and creates a WebID.
+
+        :args data: The existing WebID document
+        :type data: str
+        :args publicid: The primary ID URL, this is optional, default empty string.
+        :type publicid: str, optional
+        """
+        g = Graph()
+        # If the publicID is already in the turtle, then it will not be changed due to
+        # us passing it. But, if it is something like `<>`, then our primaryID URL will
+        # be used there.
+        g.parse(publicID=publicid, data=data)
+        g.bind("foaf", FOAF)
+        g.bind("solid", SOLID)
+        qres = g.query(SELECT_PRIMARYID)
+        if len(qres) != 1:
+            raise ParseError
+
+        w = WebID(list(qres)[0][0])
+        # Now set our graph internally
+        w.g = g
+        return w
 
     def remove_oidc_issuer_registration_token(self):
         """Removes registration token from the card (if any)"""

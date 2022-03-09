@@ -53,3 +53,25 @@ def test_issuer_token():
     w.remove_oidc_issuer_registration_token()
     res = w.serialize()
     assert not 'solid:oidcIssuerRegistrationToken "Hack the planet!"' in res
+
+
+def test_valid_parsing():
+    "Tests valid text parsing for webid"
+
+    data = """@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix solid: <http://www.w3.org/ns/solid/terms#>.
+
+<>
+    a foaf:PersonalProfileDocument;
+    foaf:maker <http://localhost:3000/example/profile/card#me>;
+    foaf:primaryTopic <http://localhost:3000/example/profile/card#me>.
+
+<http://localhost:3000/example/profile/card#me>
+
+    solid:oidcIssuer <http://localhost:3000/>;
+    a foaf:Agent.
+"""
+    w = WebID.parse(data, publicid="http://localhost:3000/example/profile/card")
+
+    # It still should be Agent type
+    assert "foaf:Agent" in w.serialize()
