@@ -6,7 +6,7 @@ Important SPECS:
 - https://www.w3.org/2005/Incubator/webid/spec/identity/
 - http://xmlns.com/foaf/spec/
 
-
+Read the `documentation <https://webid.readthedocs.io/en/latest/index.html>`_. 
 
 """
 __version__ = "0.0.1"
