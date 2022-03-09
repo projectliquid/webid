@@ -5,6 +5,15 @@ Usage guide
 This module provides an implementation to build and modify `WebID <https://www.w3.org/2005/Incubator/webid/spec/identity/>`_ 
 documents.
 
+How to install?
+-----------------
+
+To install the latest release from pypi.
+
+::
+    python3 -m pip install pywebid
+
+
 Parsing an existing document
 -----------------------------
 
