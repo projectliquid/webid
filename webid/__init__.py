@@ -93,7 +93,7 @@ class WebID:
     def add_oidc_issuer_registration_token(self, token: str):
         """Adds the given registration token to the card.
 
-        :args token: registration token given by the IDP.
+        :param token: registration token given by the IDP.
         :type token: str
         """
         self.g.set((self.me_uri, SOLID.oidcIssuerRegistrationToken, Literal(token)))
@@ -103,12 +103,14 @@ class WebID:
         """
         Parses the given data and creates a WebID.
 
-        :args data: The existing WebID document
+        :param data: The existing WebID document
         :type data: str
-        :args publicid: The primary ID URL, this is optional, default empty string.
+        :param publicid: The primary ID URL, this is optional, default empty string.
         :type publicid: str, optional
-        :args solid: If this is a Solid WebID, requires oidcIssuer value in data, default `False`.
+        :param solid: If this is a Solid WebID, requires oidcIssuer value in data, default `False`.
         :type solid: bool, optional
+
+        :raises ParseError: Means any required WebID tripples is missing.
 
         :return: Returns a WebID object
         :rtype: WebID

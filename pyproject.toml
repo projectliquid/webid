@@ -27,3 +27,4 @@ Source = "https://github.com/projectliquid/webid"
 
 [tool.flit.sdist]
 include = ["LICENSE", "README.md"]
+exclude = ["docs/*.html", ".readthedocs.yaml", "dev*.*"]
